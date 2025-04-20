@@ -1,0 +1,20 @@
+{
+  "definitions": {
+    "book": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "authorID": { "type": "integer" },
+        "genreIDs": {
+          "type": "array",
+          "items": { "type": "integer" }
+        },
+        "imageURL": { "type": "string", "format": "uri" }
+      },
+      "required": ["title", "summary", "authorID"]
+    }
+  }
+}
+
+  

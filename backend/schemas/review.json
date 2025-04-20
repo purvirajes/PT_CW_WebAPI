@@ -1,0 +1,23 @@
+{
+  "definitions": {
+    "review": {
+      "type": "object",
+      "properties": {
+        "content": { "type": "string" },
+        "userID": { "type": "integer" },
+        "bookID": { "type": "integer" }, 
+        "rating": {"type": "integer", "minimum": 1, "maximum": 5}
+      },
+      "required": ["content", "userID", "bookID", "rating"]
+    },
+    "reviewUpdate": {
+      "type": "object",
+      "properties": {
+        "content": { "type": "string" },
+        "rating": {"type": "integer", "minimum": 1, "maximum": 5}
+      },
+      "required": ["content", "rating"]
+    }
+  }
+}
+  

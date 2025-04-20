@@ -1,0 +1,588 @@
+openapi: 3.0.0
+info:
+  title: Book & Literature Review API
+  description: API for managing books, authors, reviews, genres and users
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Development server
+paths:
+  /books:
+    get:
+      summary: Get all books
+      responses:
+        '200':
+          description: List of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Create a new book
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '201':
+          description: Book created successfully
+  
+  /books/{id}:
+    get:
+      summary: Get a specific book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Book details
+        '404':
+          description: Book not found
+    put:
+      summary: Update a book
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '200':
+          description: Book updated successfully
+        '404':
+          description: Book not found
+    delete:
+      summary: Delete a book
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Book deleted successfully
+        '404':
+          description: Book not found
+  
+  /books/{id}/reviews:
+    get:
+      summary: Get all reviews for a book
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of reviews
+    post:
+      summary: Create a new review
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewInput'
+      responses:
+        '201':
+          description: Review created successfully
+  
+  /books/{id}/reviews/{reviewId}:
+    get:
+      summary: Get a specific review
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reviewId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Review details
+        '404':
+          description: Review not found
+    put:
+      summary: Update a review
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reviewId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewUpdateInput'
+      responses:
+        '200':
+          description: Review updated successfully
+        '404':
+          description: Review not found
+    delete:
+      summary: Delete a review
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: reviewId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Review deleted successfully
+        '404':
+          description: Review not found
+  
+  /authors:
+    get:
+      summary: Get all authors
+      responses:
+        '200':
+          description: List of authors
+    post:
+      summary: Create a new author
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorInput'
+      responses:
+        '201':
+          description: Author created successfully
+  
+  /authors/{id}:
+    get:
+      summary: Get a specific author
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Author details
+        '404':
+          description: Author not found
+    put:
+      summary: Update an author
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorInput'
+      responses:
+        '200':
+          description: Author updated successfully
+        '404':
+          description: Author not found
+    delete:
+      summary: Delete an author
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Author deleted successfully
+        '404':
+          description: Author not found
+  
+  /genres:
+    get:
+      summary: Get all genres
+      responses:
+        '200':
+          description: List of genres
+    post:
+      summary: Create a new genre
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenreInput'
+      responses:
+        '201':
+          description: Genre created successfully
+  
+  /genres/{id}:
+    get:
+      summary: Get a specific genre
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Genre details
+        '404':
+          description: Genre not found
+    put:
+      summary: Update a genre
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenreInput'
+      responses:
+        '200':
+          description: Genre updated successfully
+        '404':
+          description: Genre not found
+    delete:
+      summary: Delete a genre
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Genre deleted successfully
+        '404':
+          description: Genre not found
+  
+  /users:
+    get:
+      summary: Get all users (admin only)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of users
+    post:
+      summary: Create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: User created successfully
+  
+  /users/{id}:
+    get:
+      summary: Get a specific user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User details
+        '404':
+          description: User not found
+    put:
+      summary: Update a user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateInput'
+      responses:
+        '200':
+          description: User updated successfully
+        '404':
+          description: User not found
+    delete:
+      summary: Delete a user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User deleted successfully
+        '404':
+          description: User not found
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        ID:
+          type: integer
+        title:
+          type: string
+        summary:
+          type: string
+        authorID:
+          type: integer
+        imageURL:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    
+    BookInput:
+      type: object
+      properties:
+        title:
+          type: string
+        summary:
+          type: string
+        authorID:
+          type: integer
+        imageURL:
+          type: string
+        genreIDs:
+          type: array
+          items:
+          type: integer
+      required:
+        - title
+        - summary
+        - authorID
+
+    Review:
+      type: object
+      properties:
+        ID:
+          type: integer
+        content:
+          type: string
+        userID:
+          type: integer
+        bookID:
+          type: integer
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    
+    ReviewInput:
+      type: object
+      properties:
+        content:
+          type: string
+        userID:
+          type: integer
+        bookID:
+          type: integer
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+      required:
+        - content
+        - userID
+        - bookID
+        - rating
+    
+    ReviewUpdateInput:
+      type: object
+      properties:
+        content:
+          type: string
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+      required:
+        - content
+
+    Author:
+      type: object
+      properties:
+        ID:
+          type: integer
+        name:
+          type: string
+        bio:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    
+    AuthorInput:
+      type: object
+      properties:
+        name:
+          type: string
+        bio:
+          type: string
+      required:
+        - name
+
+    Genre:
+      type: object
+      properties:
+        ID:
+          type: integer
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    
+    GenreInput:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+
+    User:
+      type: object
+      properties:
+        ID:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    
+    UserInput:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - email
+        - password
+    
+    UserUpdateInput:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
