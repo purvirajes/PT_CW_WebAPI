@@ -168,7 +168,7 @@ POST /api/v1/genres - Create a new genre (admin only)
 PUT /api/v1/genres/:id - Update a genre (admin only)
 DELETE /api/v1/genres/:id - Delete a genre (admin only)
 
-##Overall 
+## Overall 
 - User authentication (register/login)
 - Protected routes with JWT
 - MySQL integration for persistent data
