@@ -170,10 +170,12 @@ const BookEditPage = () => {
       
       // Create book data object with proper types
       const bookData = {
-        ...formData,
+        title: formData.title,
+        summary: formData.summary,
         authorID: parseInt(formData.authorID) || 0,
-        genreIDs: selectedGenres
+        imageURL: formData.imageURL
       };
+
       
       if (isNewBook) {
         // Create new book

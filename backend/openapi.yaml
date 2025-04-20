@@ -184,7 +184,7 @@ paths:
   
   /authors:
     get:
-      summary: Get all authors
+      summary: Get all 
       responses:
         '200':
           description: List of authors
@@ -430,14 +430,11 @@ components:
           type: integer
         imageURL:
           type: string
-        genreIDs:
-          type: array
-          items:
-          type: integer
       required:
         - title
         - summary
         - authorID
+
 
     Review:
       type: object

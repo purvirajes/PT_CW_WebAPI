@@ -8,7 +8,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 const AuthorEditPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const isNewAuthor = id === 'new';
+  const isNewAuthor = !id || id === 'new';
   const pageTitle = isNewAuthor ? 'Add New Author' : 'Edit Author';
 
   const [formData, setFormData] = useState({
@@ -61,58 +61,52 @@ const AuthorEditPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      setSubmitting(true);
-      setError(null);
-      
-      // Validate
-      if (!formData.name.trim()) {
-        setError('Author name is required');
-        setSubmitting(false);
-        return;
-      }
-      
-      if (isNewAuthor) {
-        // Absolutely ensure data is clean
-        const cleanData = {
-          name: formData.name.trim(),
-          bio: formData.bio ? formData.bio.trim() : ''
-        };
-        
-        // Create new author with sanitized data
-        await authorService.create(cleanData);
-        
-        // Navigate with a small delay to ensure state updates
-        setTimeout(() => {
-          navigate('/admin/authors', { 
-            state: { message: 'Author created successfully' } 
-          });
-        }, 100);
-      } else {
-        // Update existing author
-        await authorService.update(id, {
-          name: formData.name.trim(),
-          bio: formData.bio ? formData.bio.trim() : ''
-        });
-        
-        // Navigate with a small delay
-        setTimeout(() => {
-          navigate('/admin/authors', { 
-            state: { message: 'Author updated successfully' } 
-          });
-        }, 100);
-      }
-    } catch (err) {
-      console.error('Error saving author:', err);
-      setError(
-        err.response?.data?.message || 
-        'Failed to save author. Please try again.'
-      );
+  try {
+    setSubmitting(true);
+    setError(null);
+
+    if (!formData.name.trim()) {
+      setError('Author name is required');
       setSubmitting(false);
+      return;
     }
-  };
+
+    const cleanData = {
+      name: formData.name.trim(),
+      bio: formData.bio?.trim() || ''
+    };
+
+    if (isNewAuthor) {
+      console.log('Creating author with data:', cleanData); 
+      const response = await authorService.create(cleanData);
+      console.log('Author creation response:', response);
+
+      setTimeout(() => {
+        navigate('/admin/authors', {
+          state: { message: 'Author created successfully' }
+        });
+      }, 100);
+    } else {
+      console.log('Updating author:', id, cleanData);
+      const response = await authorService.update(id, cleanData);
+      console.log('Author update response:', response);
+
+      setTimeout(() => {
+        navigate('/admin/authors', {
+          state: { message: 'Author updated successfully' }
+        });
+      }, 100);
+    }
+  } catch (err) {
+    console.error('Author save error:', err);
+    const backendMessage = err.response?.data?.message || err.message || 'Unknown error';
+    setError(`Failed to save author: ${backendMessage}`);
+    setSubmitting(false);
+  }
+};
+
 
   if (loading) {
     return <Loading />;
@@ -124,7 +118,7 @@ const AuthorEditPage = () => {
         <h1>{pageTitle}</h1>
         <Button 
           as={Link}
-          to="/admin/authors"
+          to="/admin/authors/new"
           variant="outline-secondary"
         >
           <FaArrowLeft className="me-2" /> Back to Authors
@@ -168,7 +162,7 @@ const AuthorEditPage = () => {
               >
                 {submitting ? 
                   (isNewAuthor ? 'Creating...' : 'Updating...') : 
-                  (isNewAuthor ? 'Create Author' : 'Update Author')}
+                  (isNewAuthor ? ' Author' : 'Update Author')}
               </Button>
               <Button 
                 type="button" 
