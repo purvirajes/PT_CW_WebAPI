@@ -9,7 +9,7 @@ regular user: username = testuser123, password = password123 (or register for a 
 ## Setup
 run 'npm install' to get all dependencies
 backend setup
-cd PT_CW_WebAPI/backend press enter then npm start
+cd PT_CW_WebAPI/backend press enter then npm start (press on the link api documentation and book api link to see the what it looks like)
 the below is displayed:
 
 Server running on 3000
@@ -39,7 +39,7 @@ cd PT_CW_WebAPI/frontend press enter then npm start and click BoxUrl on codio fo
   
 ### Frontend
 - [React] – SPA framework
-- [React Router] – Routing for single-page applications
+- [React Router] – Routing for single-page applications + Bootstrap
 - [Axios] – HTTP client for API requests
 
 ## .env file in backend/
