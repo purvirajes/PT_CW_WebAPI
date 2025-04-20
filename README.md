@@ -44,12 +44,13 @@ cd PT_CW_WebAPI/frontend press enter then npm start and click BoxUrl on codio fo
 
 ## .env file in backend/
 ```env
-PORT=4000
 DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=yourpassword
-DB_NAME=yourdatabase
-JWT_SECRET=your_jwt_secret
+DB_USER=root 
+DB_PASSWORD=codio
+DB_NAME=bookstore
+
+JWT_SECRET=mySuperSecureSecret123
+PORT=3000
 ```
 
 ## Runing Jest Tests
