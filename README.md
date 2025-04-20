@@ -3,6 +3,7 @@ This repository contains the frontend and backend code for an online book and li
 It is a full-stack web application built using Koa Node JS framework to build the backend. MySQL for database and ReactJS single page application (SPA) web client for the frontend.
 
 admin user: username = admin, password = admin123
+
 regular user: username = testuser123, password = password123 (or register for a new account)
 
 ## Setup
@@ -10,9 +11,13 @@ run 'npm install' to get all dependencies
 backend setup
 cd PT_CW_WebAPI/backend press enter then npm start
 the below is displayed:
+
 Server running on 3000
+
 Book API running at https://collectlucas-printerultra-3000.codio-box.uk/api/v1
+
 API Editor running at https://collectlucas-printerultra-3000.codio-box.uk/api/v1/api-editor
+
 API Documentation running at https://collectlucas-printerultra-3000.codio-box.uk/api/v1/api-docs
 
 
